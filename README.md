@@ -9,18 +9,18 @@ Table of Contents
 
 Welcome to Zome, a one-stop solution for all your real estate needs. Whether you're looking to buy, sell, our platform is designed to make the process easy and convenient for you.
 
-# Key Features
+## Key Features
 
 
-# Getting Started
+## Getting Started
 
-# Usage
+## Usage
 
-# Documentation
-# Tests
+## Documentation
+## Tests
 
-# Contributors
-# License
+## Contributors
+## License
 
 
 
