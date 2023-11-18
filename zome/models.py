@@ -3,6 +3,8 @@
 """Script that outlines the data model of the application"""
 
 from zome import db
+from datetime import datetime
+
 
 class User(db.Model):
     """class that decribes the data of users"""
@@ -15,13 +17,21 @@ class User(db.Model):
     land_listing = db.relationship("Land_listing", backref="author", lazy=True)
     gender = db.Column(db.String(10), nullable=False)
 
-    
+
     def __repr__(self):
         """method that provides string representation of User object"""
         return f"User('{self.username}', '{self.email}', '{self.profile_pics}')"
 
 class Land_listing(db.Model):
     """class tha handles the data posted has land listing"""
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+    size = db.Column(db.Float, nullale=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
+    
 class house_listing(db.Model):
     """class that handles the data posted as house listing"""
