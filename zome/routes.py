@@ -31,6 +31,3 @@ def login():
 def logout():
     """route that handles logout of users"""
     return redirect(url_for("home"))
-
-
-
