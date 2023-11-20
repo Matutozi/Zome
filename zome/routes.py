@@ -8,7 +8,7 @@ from flask_login import login_user, current_user
 from zome import bcrypt, db
 from zome.models import User, Land_listing, House_listing
 from zome.models import Admin
-from zome.forms import Login
+from zome.forms import Login, RegistrationForm
 
 
 @app.route("/")
@@ -23,9 +23,24 @@ def about():
     return render_template("about.html")
 
 @app.route("/register", methods=["GET", "POSTS"])
-def register():
+def user_register():
     """route that handles registration of new users"""
-    return render_template("register.html", title="Register")
+    form = RegistrationForm()
+
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
+        if bcrypt.check_password_hash(hashed_password, form.confirm_password.data):
+            user = User(username=form.username.data, surname=form.surname.data,first_name=form.first_name.data,other_name=form.other_name.data,email=form.email.data, password=hashed_password)
+            db.session.add(user)
+            db.session.commit()
+
+            flash("Account has been created", "success")
+            return redirect(url_for("login"))
+    
+    else:
+        flash("Password and confim password mismatch", "danger")
+
+    return render_template("register.html", title="Register", form=form)
 
 @app.route("/login", methods=["GETS", "POSTS"])
 def login():
