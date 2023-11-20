@@ -3,7 +3,12 @@
 """Script that handles the flask routes for the application"""
 
 from zome import app
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, request, flash
+from flask_login import login_user, current_user
+from zome import bcrypt, db
+from zome.models import User, Land_listing, House_listing
+from zome.models import Admin
+from zome.forms import Login
 
 
 @app.route("/")
@@ -24,7 +29,34 @@ def register():
 
 @app.route("/login", methods=["GETS", "POSTS"])
 def login():
-    """route that handles login of authtnticated users"""
+    """route   that handles login of authtnticated users"""
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+    
+    form = Login()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+
+        admin = Admin.query.filter_by(email=form.email.data).first()
+
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get("next")
+            return redirect(next_page) if next_page else redirect(url_for("home"))
+        
+        elif admin and bcrypt.check_password_hash(admin.password, form.password.data):
+            login_user(admin, remember=form.remember.data)
+            next_page = request.args.get("next")
+            return redirect(next_page) if next_page else redirect(url_for("home"))
+        
+        else:
+            flash("Login not successful. Please enter valid credentials", "danger")
+    
+    return render_template("login.html", title='Login', form=form)
+    
+
+
     return render_template("login", title="login")
 
 @app.route("/logout")
