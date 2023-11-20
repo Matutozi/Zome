@@ -9,6 +9,9 @@ from wtforms import SubmitField, StringField, PasswordField, BooleanField
 class RegistrationForm(FlaskForm):
     """Class that handles the registration task for new users"""
     username = StringField("Username", validators=[DataRequired(),Length(min=2, max=20)])
+    surname = StringField("Surname", validators=[DataRequired(),Length(min=2, max=20)])
+    first_name=StringField("First_name", validators=[DataRequired(),Length(min=2, max=20)])
+    other_name=StringField("Other_name", validators=[DataRequired(),Length(min=2, max=20)])
     email = StringField("Email", validators=[DataRequired(),Email()])
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired(),EqualTo("password")])
