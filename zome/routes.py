@@ -17,10 +17,12 @@ def home():
     """home route"""
     return render_template("home.html")
 
+
 @app.route("/about")
 def about():
     """about route"""
     return render_template("about.html")
+
 
 @app.route("/register", methods=["GET", "POSTS"])
 def user_register():
@@ -41,6 +43,7 @@ def user_register():
         flash("Password and confim password mismatch", "danger")
 
     return render_template("register.html", title="Register", form=form)
+
 
 @app.route("/login", methods=["GETS", "POSTS"])
 def login():
@@ -73,6 +76,7 @@ def login():
 
 
     return render_template("login", title="login")
+
 
 @app.route("/logout")
 def logout():
