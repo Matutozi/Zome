@@ -49,6 +49,10 @@ class House_listing(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
+    def __repr_(self):
+        """method that provides string representation for house listing object"""
+        return f"House Listing('{self.title}', '{self.price}', '{self.date_posted}')"
+
 class Admin(db.Model, UserMixin):
     """class that handles the admin proviedge data"""
     id = db.Column(db.Integer, primary_key=True)
@@ -58,3 +62,4 @@ class Admin(db.Model, UserMixin):
 
     def __repr__(self):
         """method that provides string representation for Admin Class"""
+        return f"Admin('{self.username}', '{self.email})"
