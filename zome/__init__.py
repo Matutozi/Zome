@@ -1,14 +1,15 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 from os import getenv
 from urllib.parse import quote_plus
-
+from zome.config import Config
 
 app = Flask(__name__)
 db = SQLAlchemy()
+bcrypt = Bcrypt(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+mysqldb://{getenv('MYSQL_USER')}:{quote_plus(getenv('MYSQL_PWD'))}@{getenv('MYSQL_HOST')}/{getenv('MYSQL_DB')}"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config.from_object(Config)
 
 db.init_app(app)
 
