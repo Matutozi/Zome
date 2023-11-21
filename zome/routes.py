@@ -6,7 +6,7 @@ from zome import app
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, current_user
 from zome import bcrypt, db
-from zome.models import User, Land_listing, House_listing
+from zome.models import User, LandListing, House_listing
 from zome.models import Admin
 from zome.forms import Login, RegistrationForm
 
