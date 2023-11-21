@@ -8,9 +8,9 @@ MYSQL_USER = getenv("MYSQL_USER")
 MYSQL_PWD = getenv("MYSQL_PWD")
 MYSQL_HOST = getenv("MYSQL_HOST")
 MYSQL_DB = getenv("MYSQL_DB")
-#print(MYSQL_USER)
-#print(MYSQL_PWD)
-#print(MYSQL_HOST)
+print(MYSQL_USER)
+print(MYSQL_PWD)
+print(MYSQL_HOST)
 
 
 
