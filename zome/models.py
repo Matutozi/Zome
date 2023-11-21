@@ -37,7 +37,7 @@ class LandListing(db.Model):
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, nullable=False)
     location = db.Column(db.String(100), nullable=False)
-    size = db.Column(db.Float, nullale=False)
+    size = db.Column(db.Float, nullable=False)
     date_posted = db.Column(
             db.DateTime,
             nullable=False,
@@ -55,7 +55,7 @@ class House_listing(db.Model):
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, nullable=False)
     location = db.Column(db.String(100), nullable=False)
-    size = db.Column(db.Float, nullale=False)
+    size = db.Column(db.Float, nullable=False)
     date_posted = db.Column(
             db.DateTime,
             nullable=False,
