@@ -13,3 +13,10 @@ Werkzeug==3.0.1
 zipp==3.17.0
 Flask-Login
 FLask-Bcrypt
+Flask-WTF
+--upgrade Flask-Bcrypt
+--upgrade Flask Flask-Login
+
+
+
+
