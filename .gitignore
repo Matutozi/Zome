@@ -160,4 +160,4 @@ cython_debug/
 #.idea/
 
 # Exclude the virtual environment
-zome/
+virtual_zome/
