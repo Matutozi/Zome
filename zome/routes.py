@@ -4,7 +4,7 @@
 
 from zome import app
 from flask import render_template, redirect, url_for, request, flash
-from flask_login import login_user, current_user
+from flask_login import login_user, current_user, logout_user, login_required
 from zome import bcrypt, db
 from zome.models import User, LandListing, House_listing
 from zome.models import Admin
@@ -15,18 +15,20 @@ from zome.forms import Login, RegistrationForm
 @app.route("/home")
 def home():
     """home route"""
-    return render_template("home.html")
+    return render_template("home.html", title="Home")
 
 
 @app.route("/about")
 def about():
     """about route"""
-    return render_template("about.html")
+    return render_template("about.html", title="About")
 
 
 @app.route("/register", methods=["GET", "POSTS"])
 def user_register():
     """route that handles registration of new users"""
+    if current_user.is_authenticated():
+        return redirect(url_for("home"))
     form = RegistrationForm()
 
     if form.validate_on_submit():
@@ -72,13 +74,11 @@ def login():
             flash("Login not successful. Please enter valid credentials", "danger")
     
     return render_template("login.html", title='Login', form=form)
-    
 
-
-    return render_template("login", title="login")
 
 
 @app.route("/logout")
 def logout():
     """route that handles logout of users"""
+    logout_user()
     return redirect(url_for("home"))
