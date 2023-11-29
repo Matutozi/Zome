@@ -47,7 +47,8 @@ class LandListing(db.Model):
     def __repr__(self):
         """Method that provides string representaton of Land Listing object"""
         return f"Land Listing('{self.title}', '{self.price}', '{self.date_posted}')"
-    
+
+
 class House_listing(db.Model):
     """class that handles the data posted as house listing"""
     id = db.Column(db.Integer, primary_key=True)
