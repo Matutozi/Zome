@@ -16,13 +16,12 @@ Welcome to Zome, a one-stop solution for all your real estate needs. Whether you
 
 ## Usage
 ## Installation
-pip3 install Flask
-pip3 install Flask-SQLAlchemy
-pip3 install Flask-WTF
+pip install -r requirements.txt
 ## Documentation
 ## Tests
 
 ## Contributors
+
 ## License
 
 
