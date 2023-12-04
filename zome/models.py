@@ -5,11 +5,33 @@
 from zome import db
 from datetime import datetime
 from flask_login import UserMixin
+import uuid
+
+
+class Listing:
+    "Represents the base model"
+    id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    location = db.Column(db.String(100), nullable=False)
+    size = db.Column(db.Float, nullable=False)
+    date_posted = db.Column(
+            db.DateTime,
+            nullable=False,
+            default=datetime.utcnow)
+
+    def to_dict(self):
+        """Return info of class a dictionary"""
+        attribs = self.__dict__.copy()
+        attribs["__class__"] = type(self).__name__
+
+        return attribs
 
 
 class User(db.Model, UserMixin):
     """class that decribes the data of users"""
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     profile_pics = db.Column(
@@ -18,7 +40,8 @@ class User(db.Model, UserMixin):
             default="default.jpg")
     password = db.Column(db.String(65), nullable=False)
     phone_no = db.Column(db.String(15), nullable=False, unique=True)
-    land_listing = db.relationship("Land_listing", backref="author", lazy=True)
+    land_listings = db.relationship("LandListing", backref="user", lazy=True)
+    home_lisitings = db.relationship("HouseListing", backref="user", lazy=True)
     gender = db.Column(db.String(10), nullable=False)
 
     def __repr__(self):
@@ -30,43 +53,37 @@ class User(db.Model, UserMixin):
                 )
 
 
-class LandListing(db.Model):
+class LandListing(db.Model, Listing):
     """class tha handles the data posted has land listing"""
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    location = db.Column(db.String(100), nullable=False)
-    size = db.Column(db.Float, nullable=False)
-    date_posted = db.Column(
-            db.DateTime,
-            nullable=False,
-            default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user = db.Column(db.String(36), db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
         """Method that provides string representaton of Land Listing object"""
-        return f"Land Listing('{self.title}', '{self.price}', '{self.date_posted}')"
+        return "Land Listing('{}', '{}', '{}')".foemat(
+            self.title,
+            self.price,
+            self.date_posted
+        )
 
 
-class House_listing(db.Model):
+class HouseListing(db.Model, Listing):
     """class that handles the data posted as house listing"""
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.Text, nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    location = db.Column(db.String(100), nullable=False)
-    size = db.Column(db.Float, nullable=False)
-    date_posted = db.Column(
-            db.DateTime,
-            nullable=False,
-            default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    number_rooms = db.Column(db.Integer, nullable=False, default=0)
+    number_bathrooms = db.Column(db.Integer, nullable=False, default=0)
+    user = db.Column(db.String(36), db.ForeignKey("user.id"), nullable=False)
+
+    def __repr__(self):
+        """Method that provides string representaton of House Listing object"""
+        return "House Listing('{}', '{}', '{}')".format(
+            self.title,
+            self.price,
+            self.date_posted
+        )
 
 
 class Admin(db.Model):
     """class that handles the admin proviedge data"""
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(36), primary_key=True, default=str(uuid.uuid4()))
     username = db.Column(db.String(20), unique=True, nullable=True)
     password = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)

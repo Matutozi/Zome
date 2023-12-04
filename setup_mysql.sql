@@ -1,6 +1,7 @@
 -- This script prepares a MySQL server for the project.
 
 -- Creates database
+DROP DATABASE IF EXISTS zome_db;
 CREATE DATABASE IF NOT EXISTS zome_db;
 
 -- Creates user
