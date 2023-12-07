@@ -50,7 +50,7 @@ class Login(FlaskForm):
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
     remember = BooleanField("Remember me")
-    Submit = SubmitField("Login in")
+    Submit = SubmitField("Login")
 
 
 class UpdateForm(FlaskForm):
