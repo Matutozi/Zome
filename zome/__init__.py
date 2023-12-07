@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from zome.config import Config
+from flask_login import LoginManager
 
 app = Flask(__name__)
 db = SQLAlchemy()
@@ -11,6 +12,9 @@ app.config.from_object(Config)
 app.url_map.strict_slashes = False
 db.init_app(app)
 
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+login_manager.login_message_category = 'info'
 
 @app.errorhandler(404)
 def page_not_found(error):
