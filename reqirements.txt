@@ -16,3 +16,4 @@ FLask-Bcrypt
 Flask-WTF
 mysqlclient
 flask
+Pillow
