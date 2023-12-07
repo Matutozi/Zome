@@ -34,7 +34,8 @@ class Listing:
         attribs["__class__"] = type(self).__name__
 
         return attribs
-
+    
+    @staticmethod
     def save_picture(form_picture):
         random_hex = secrets.token_hex(8)
         _, f_ext = os.path.splitext(form_picture.filename)
