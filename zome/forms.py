@@ -3,7 +3,7 @@
 """
 
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
+from flask_wtf.file import FileField, FileAllowed, TextAreaField
 from flask_login import current_user
 from wtforms.validators import (
         DataRequired, Length, Email, EqualTo, ValidationError
@@ -73,3 +73,10 @@ class UpdateForm(FlaskForm):
             user = User.query.filter_by(email=email.data).first()
             if user:
                 raise ValidationError('That email is taken. Please choose a different one.')
+
+class ListingForm(FlaskForm):
+    """module that is used to add new data or listing to the database"""
+    title = StringField('Title', validators=[DataRequired(), Length(min=2, max=100)])
+    description = TextAreaField('Description', validators=[DataRequired()])
+    image = FileField('Add an Image', validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField('Add Listing')
