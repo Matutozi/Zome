@@ -3,13 +3,14 @@
 """
 
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed, TextAreaField
+from flask_wtf.file import FileField, FileAllowed, TextAreaField, FloatField, IntegerField
 from flask_login import current_user
 from wtforms.validators import (
         DataRequired, Length, Email, EqualTo, ValidationError
         )
 from wtforms import SubmitField, StringField, PasswordField, BooleanField
 from zome.models import User
+
 
 class RegistrationForm(FlaskForm):
     """Class that handles the registration task for new users"""
@@ -75,8 +76,23 @@ class UpdateForm(FlaskForm):
                 raise ValidationError('That email is taken. Please choose a different one.')
 
 class ListingForm(FlaskForm):
-    """module that is used to add new data or listing to the database"""
-    title = StringField('Title', validators=[DataRequired(), Length(min=2, max=100)])
+    """module that stores listing data for storage in the database"""
+    title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
+    price = FloatField('Price', validators=[DataRequired()])
+    location = StringField('Location', validators=[DataRequired()])
+    size = FloatField('Size', validators=[DataRequired()])
     image = FileField('Add an Image', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Add Listing')
+
+class LandListingForm(ListingForm):
+    """module that stores land listing data and inherits from listing form"""
+    land_specific_field = FloatField('Land Specific Field', validators=[DataRequired()])
+    submit_land = SubmitField('Add Land Listing')
+
+class HouseListingForm(ListingForm):
+    """module that stores house listing data and inherits from listing form"""
+    number_rooms = IntegerField('Number of Rooms', validators=[DataRequired()])
+    number_bathrooms = IntegerField('Number of Bathrooms', validators=[DataRequired()])
+    house_specific_field = StringField('House Specific Field', validators=[DataRequired()])
+    submit_house = SubmitField('Add House Listing')
