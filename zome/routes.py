@@ -8,7 +8,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 from zome import bcrypt, db
 from zome.models import User, LandListing, HouseListing
 from zome.models import Admin
-from zome.forms import Login, RegistrationForm
+from zome.forms import Login, RegistrationForm, UpdateForm
+from zome.models import Listing
 
 
 @app.route("/")
@@ -98,3 +99,28 @@ def logout():
     """route that handles logout of users"""
     logout_user()
     return redirect(url_for("home"))
+
+@app.route("/account", methods=['GET', 'POST'])
+@login_required
+def account():
+    form = UpdateForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = Listing.save_picture(form.picture.data)
+            current_user.image_file = picture_file
+
+        current_user.firstname = form.firstname.data
+        current_user.lastname = form.lastname.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Account Updated', 'success')
+        return redirect(url_for('users.account'))
+    elif request.method == 'GET':
+        form.firstname.data = current_user.firstname
+        form.lastname.data = current_user.lastname
+        form.email.data = current_user.email
+        image_file = url_for('static', filename='uploads/'
+        + current_user.image_file)
+    return render_template('account.html', title='Account', image_file=image_file, form=form)
+
+

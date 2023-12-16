@@ -3,12 +3,12 @@
 """
 
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed, TextAreaField, FloatField, IntegerField
+from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms.validators import (
         DataRequired, Length, Email, EqualTo, ValidationError
         )
-from wtforms import SubmitField, StringField, PasswordField, BooleanField
+from wtforms import SubmitField, StringField, PasswordField, BooleanField, TextAreaField, FloatField, IntegerField
 from zome.models import User
 
 
