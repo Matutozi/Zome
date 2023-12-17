@@ -75,8 +75,8 @@ class UpdateForm(FlaskForm):
             if user:
                 raise ValidationError('That email is taken. Please choose a different one.')
 
-class ListingForm(FlaskForm):
-    """module that stores listing data for storage in the database"""
+class LandListingForm(FlaskForm):
+    """module that stores land listing data for storage in the database"""
     title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
     price = FloatField('Price', validators=[DataRequired()])
@@ -85,14 +85,7 @@ class ListingForm(FlaskForm):
     image = FileField('Add an Image', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Add Listing')
 
-class LandListingForm(ListingForm):
-    """module that stores land listing data and inherits from listing form"""
-    land_specific_field = FloatField('Land Specific Field', validators=[DataRequired()])
-    submit_land = SubmitField('Add Land Listing')
-
-class HouseListingForm(ListingForm):
-    """module that stores house listing data and inherits from listing form"""
+class HouseListingForm(LandListingForm):
+    """module that stores house listing data and inherits from land listing form"""
     number_rooms = IntegerField('Number of Rooms', validators=[DataRequired()])
     number_bathrooms = IntegerField('Number of Bathrooms', validators=[DataRequired()])
-    house_specific_field = StringField('House Specific Field', validators=[DataRequired()])
-    submit_house = SubmitField('Add House Listing')

@@ -23,6 +23,7 @@ class Listing:
     price = db.Column(db.Float, nullable=False)
     location = db.Column(db.String(100), nullable=False)
     size = db.Column(db.Float, nullable=False)
+    image = db.Column(db.String(100), default="images/zome_placeholder-2.jpg")
     date_posted = db.Column(
             db.DateTime,
             nullable=False,
@@ -63,10 +64,9 @@ class User(db.Model, UserMixin):
             nullable=False,
             default="default.jpg")
     password = db.Column(db.String(65), nullable=False)
-    phone_no = db.Column(db.String(15), nullable=False, unique=True)
+    phone = db.Column(db.String(15), nullable=False, unique=True)
     land_listings = db.relationship("LandListing", backref="user", lazy=True)
     home_lisitings = db.relationship("HouseListing", backref="user", lazy=True)
-    gender = db.Column(db.String(10), nullable=False)
 
     def __repr__(self):
         """method that provides string representation of User object"""
