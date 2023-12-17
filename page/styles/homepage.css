@@ -1,5 +1,5 @@
 .hero {
-  width: 100%;
+  width: 98%;
   height: 70%;
   max-height: 500px;
   border-radius: 10px;
@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   background: center/cover no-repeat url("../images/hero-bg.jpg");
-  margin-bottom: 2%;
+  margin: 0 auto 2% auto;
 }
 
 .hero > h2 {
@@ -65,21 +65,6 @@ main {
 	width: 100%;
 }
 
-.listing_title {
-  display: flex;
-  justify-content: space-between;
-}
-
-.listing_title > select {
-  /* all: unset; */
-  display: inline-block;
-  cursor: pointer;
-  background-color: transparent;
-  padding: 1rem 0;
-  border: none;
-  border-bottom: 1px solid var(--light-grey);
-}
-
 .listing_container {
 	display: flex;
 	flex-flow: row wrap;
@@ -95,6 +80,7 @@ main {
 	border-radius: 5px;
 	height: 400px;
 	margin: 0 1% 1% 0;
+	cursor: pointer;
 }
 
 .listing > a {

@@ -12,17 +12,23 @@ html {
 :root {
   --zome-blue: hsl(199, 100%, 43%);
   --zome-blue-mix: hsl(203, 83%, 32%);
+  --zome-blue-dark: hsl(202.4, 40.2%, 24.9%);
   --white: hsl(0, 0%, 100%);
   --black: hsl(0, 0%, 0%);
   --zome-user: hsl(226, 46%, 20%);
+  --zome-light-user: hsl(226, 46%, 50%);
   --light-grey: hsl(0, 0%, 86%);
   --lighter-grey: hsl(0, 0%, 90%);
+  --green: green;
+  --zome-light-green-mix: hsl(163, 44%, 50%);
+  --zome-green-mix: hsl(163, 44%, 27%);
+  --zome-error: hsl(355, 90%, 32%);
+  --zome-cancel: hsl(0, 67%, 51%);
 }
 
 body {
   height: 100vh;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  padding: 0.5% 1%;
 }
 
 a {
@@ -35,7 +41,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* padding: 1%; */
+  padding: 1%;
   margin: 1rem 0;
 }
 
@@ -49,7 +55,12 @@ header > .logo > img {
   max-height: 100%;
 }
 
+header > nav {
+  width: 40%;
+}
+
 header > nav > ol {
+  min-width: 450px;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -78,17 +89,66 @@ header > nav > ol > li > a:focus {
   border-bottom: 1.2px solid var(--zome-blue-mix);
 }
 
-nav {
-  width: 35%;
+main {
+  width: 100%;
+  padding: 0 1%;
 }
 
 #profile_sign {
   color: var(--zome-blue-mix);
   display: flex;
+  overflow: hidden;
+  text-underline-position: under;
 }
 
 #profile_sign > img {
   width: 2.4rem;
   height: 2.4rem;
   padding-right: 0.4rem;
+}
+
+#profile_sign > a {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#profile_sign:hover {
+  text-decoration: underline;
+}
+
+.listing_title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.listing_title > select {
+  /* all: unset; */
+  display: inline-block;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 1rem 0;
+  border: none;
+  border-bottom: 1px solid var(--light-grey);
+}
+
+footer {
+  color: var(--white);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: var(--zome-blue-dark); */
+  background-color: var(--zome-blue-mix);
+  height: 8rem;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  padding: 0 2%;
+}
+footer > p {
+  display: block;
+  font-size: 1.2rem;
+}
+
+footer > p > a:hover {
+  color: var(--black);
 }
