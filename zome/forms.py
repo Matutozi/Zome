@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms.validators import (
-        DataRequired, Length, Email, EqualTo, ValidationError
+        DataRequired, Length, Email, EqualTo, ValidationError, Regexp
         )
 from wtforms import SubmitField, StringField, PasswordField, BooleanField, TextAreaField, FloatField, IntegerField
 from zome.models import User
@@ -20,13 +20,11 @@ class RegistrationForm(FlaskForm):
     surname = StringField(
         "Surname",
         validators=[DataRequired(), Length(min=2, max=20)])
-    first_name = StringField(
-        "First_name",
-        validators=[DataRequired(), Length(min=2, max=20)])
-    other_name = StringField(
-        "Other_name",
+    firstname = StringField(
+        "First Name",
         validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email", validators=[DataRequired(), Email()])
+    phone = StringField("Phone Number", validators=[Regexp('^\+(?:[0-9] ?){6,14}[0-9]$')])
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField(
             "Confirm Password",
