@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='images/zome_icon.png') }}"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/common.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/homepage.css') }} "
+    />
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='scripts/index_script.js') }}"
+      defer
+    ></script>
+    {% if title %}
+    <title>Zome - {{ title }}</title>
+    {% else %}
+    <title>Zome</title>
+    {% endif %}
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="{{ url_for('/') }}"
+          ><img src="images/zome_logo.svg" alt=""
+        /></a>
+      </div>
+      <nav>
+        <ol>
+          <li><a href="{{ url_for('homes') }}">HOMES</a></li>
+          <li><a href="{{ url_for('lands') }}">LANDS</a></li>
+          <li><a href="{{ url_for('contact') }}">CONTACT US</a></li>
+          <li><a href="{{ url_for('about') }}">ABOUT</a></li>
+          <li id="profile_sign">
+            <img src="images/user_circle.svg" alt="" />
+            {% if user %}
+            <a href="{{ url_for('profile') }}">{{ user.username }}</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">Sign In</a>
+            {% endif %}
+          </li>
+        </ol>
+      </nav>
+    </header>
+    {% block content %}{% endblock %}
+    <footer>
+      <p>
+        This portfolio project was created for the ALX software engineering
+        programme
+      </p>
+      <p>
+        Find the source code and contributors
+        <a href="https://github.com/Matutozi/Zome" target="blank">here</a>
+      </p>
+    </footer>
+  </body>
+</html>
