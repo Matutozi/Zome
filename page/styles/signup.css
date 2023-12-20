@@ -68,12 +68,20 @@ h1 {
   padding: 1rem;
 }
 
-input[type="radio" i],
-input[type="checkbox" i] {
+.form_container > form input[type="checkbox"] {
+  display: inline;
+  vertical-align: top;
+  background: none;
   width: unset;
-  min-height: unset;
-  margin-right: 5px;
+  margin: 0 0.5rem 0 0;
+  cursor: pointer;
 }
+
+.form_container > form input[type="checkbox"] ~ label {
+  display: inline-block;
+  margin: 0;
+}
+
 a {
   color: inherit;
 }
@@ -106,10 +114,21 @@ a {
   margin: 10px 0;
 }
 
+.sbmt_rem_container {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0 0.5rem 0;
+  align-items: flex-end;
+}
+
+.sbmt_rem_container > button#submit {
+  margin: 0;
+}
+
 .form_container > form button {
   font-size: 1.5rem;
   display: block;
-  margin: 2rem 0 1rem auto;
+  margin: 2rem 0 0.2rem auto;
   border: 1px solid var(--zome-blue);
   border-radius: 10px;
   color: var(--zome-blue);
