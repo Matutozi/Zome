@@ -1,12 +1,14 @@
-{% extends "layout.html" %}
-{% block content %}
-    <main>
-      <h1>CONTACT US</h1>
-      <p>
-        This page will be updated later. For now you can reach the developers
-        through the link in the footer
-      </p>
-    </main>
-    {% endblock content %}
-  </body>
-</html>
+{% extends "layout.html" %} {% block stylesheets %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/about.css') }}"
+/>
+{% endblock stylesheets %} {% block content %}
+<main>
+  <h1>CONTACT US</h1>
+  <p>
+    This page will be updated later. For now you can reach the developers
+    through the link in the footer
+  </p>
+</main>
+{% endblock content %}

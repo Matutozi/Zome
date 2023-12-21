@@ -13,10 +13,9 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='styles/common.css') }}"
     />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles/homepage.css') }} "
-    />
+
+    {% block stylesheets %}{% endblock %}
+
     <script
       type="text/javascript"
       src="{{ url_for('static', filename='scripts/index_script.js') }}"
@@ -31,9 +30,7 @@
   <body>
     <header>
       <div class="logo">
-        <a href="{{ url_for('/') }}"
-          ><img src="images/zome_logo.svg" alt=""
-        /></a>
+        <a href="/"><img src="images/zome_logo.svg" alt="" /></a>
       </div>
       <nav>
         <ol>

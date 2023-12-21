@@ -75,14 +75,16 @@ class UpdateForm(FlaskForm):
 
 class ListingForm(FlaskForm):
     """module that stores land listing data for storage in the database"""
-    title = StringField('Title', validators=[DataRequired()])
-    description = TextAreaField('Description', validators=[DataRequired()])
-    price = FloatField('Price', validators=[DataRequired()])
+    title = StringField('Title', validators=[DataRequired(), Length(min=5, max=100)],
+            render_kw={'placeholder': "E.g. The King's Villa"})
+    description = TextAreaField('Description', validators=[DataRequired()],
+            render_kw={'placeholder': "Situated in the suburbs..."})
+    price = FloatField('Price ($)', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
     number_rooms = IntegerField('Number of Rooms', validators=[DataRequired()])
     number_bathrooms = IntegerField('Number of Bathrooms', validators=[DataRequired()])
-    size = FloatField('Size', validators=[DataRequired()])
-    image = FileField('Add an Image', validators=[FileAllowed(['jpg', 'png'])])
+    size = FloatField('Size (sqm)', validators=[DataRequired()])
+    image = FileField('Upload Image', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Add Listing')
 
 # class HouseListingForm(LandListingForm):

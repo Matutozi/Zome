@@ -1,0 +1,56 @@
+{% extends "layout.html" %} {% block stylesheets %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/signup.css') }}"
+/>
+{% endblock stylesheets %} {% block content%}
+<main>
+  <h1>Sign In</h1>
+  <div class="form_container">
+    <!-- <div class="alert-container">
+          <span class="alert-danger"
+            >Login not successful. Please enter valid credentials</span
+          >
+        </div> -->
+
+    <div class="alert-container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <span class="alert-{{ category }}">{{ message }}</span>
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
+
+    <form action="" method="POST">
+      <fieldset class="details">
+        <div class="field">
+          {{ form.email.label()) }} {% if form.email.errors %} {{ form.email()
+          }}
+          <div class="invalid-feedback">
+            {% for error in form.email.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.email() }} {% endif %}
+        </div>
+
+        {{ form.password.label()) }} {% if form.password.errors %} {{
+        form.password() }}
+        <div class="invalid-feedback">
+          {% for error in form.password.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.password() }} {% endif %}
+
+        <div class="sbmt_rem_container">
+          <div class="remember_container">
+            {{ form.remember() }} {{ form.remember.label() }}
+          </div>
+          {{ form.submit(id="submit") }}
+        </div>
+      </fieldset>
+    </form>
+    <p>Need an account? <a href="{{ url_for('register' }}">Sign Up</a></p>
+  </div>
+</main>
+{% endblock content %}

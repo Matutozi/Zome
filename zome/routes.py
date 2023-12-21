@@ -13,10 +13,11 @@ from zome.models import Listing
 
 
 @app.route("/")
-@app.route("/home")
 def home():
     """home route"""
-    return render_template("home.html", title="Home")
+    all_listings = [listing.to_dict() for listing in LandListing.query.all()]
+    all_listings += [listing.to_dict() for listing in HouseListing.query.all()]
+    return render_template("index.html", all_listings=all_listings)
 
 
 @app.route("/about")
@@ -24,6 +25,11 @@ def about():
     """about route"""
     return render_template("about.html", title="About")
 
+
+@app.route("/contact")
+def contact():
+    """contact route"""
+    return render_template("contact.html", title="Contact Us")
 
 @app.route("/register", methods=["GET", "POST"])
 def user_register():

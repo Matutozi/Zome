@@ -1,33 +1,44 @@
-{% extends "layout.html" %}
-{% block content %}
-    <main>
-      <article class="listing">
-        <div class="listing_img_container">
-          <img src="{{ url_for('static', filename='{{ listing.image }}') }}" alt="" />
+{% extends "layout.html" %} {% block stylesheets %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/listing.css') }}"
+/>
+{% endblock stylesheets %} {% block content %}
+<main>
+  <article class="listing">
+    <div class="listing_img_container">
+      <img
+        src="{{ url_for('static', filename='image/listings/' + listing.image) }}"
+        alt=""
+      />
+    </div>
+    <div class="listing_details">
+      <p id="listing_specs-detail"><span></span> For Sale</p>
+      <h2 id="listing_title">{{ listing.title }}</h2>
+      <h1 id="listing_price">${{ listing.price }}</h1>
+      <p class="listing_description">{{ listing.description }}</p>
+      <div class="listing_specs">
+        <div class="listing_spec">
+          <img
+            src="{{ url_for('static', filename='images/icon_location.png') }}"
+            alt=""
+          />
+          <p class="listing_specs-location">{{ listing.location }}</p>
         </div>
-        <div class="listing_details">
-          <p id="listing_specs-detail"><span></span> For Sale</p>
-          <h2 id="listing_title">{{ listing.title }}</h2>
-          <h1 id="listing_price">${{ listing.price }}</h1>
-          <p class="listing_description">
-            {{ listing.description }}
+        <div class="listing_spec">
+          <img
+            src="{{ url_for('static', filename='images/icon_space.png') }}"
+            alt=""
+          />
+          <p class="listing_specs-size">
+            <span>{{ listing.size }}</span> square metres
           </p>
-          <div class="listing_specs">
-            <div class="listing_spec">
-              <img src="{{ url_for('static', filename='images/icon_location.png') }}" alt="" />
-              <p class="listing_specs-location">
-                {{ listing.location }}
-              </p>
-            </div>
-            <div class="listing_spec">
-              <img src="{{ url_for('static', filename='images/icon_space.png') }}" alt="" />
-              <p class="listing_specs-size"><span>{{ listing.size }}</span> square metres</p>
-            </div>
-          </div>
-          <a href="mailto:{{ listing.user.email }}" class="listing_contact">Contact Agent</a>
         </div>
-      </article>
-    </main>
-    {% endblock content %}
-  </body>
-</html>
+      </div>
+      <a href="mailto:{{ listing.user.email }}" class="listing_contact"
+        >Contact Agent</a
+      >
+    </div>
+  </article>
+</main>
+{% endblock content %}

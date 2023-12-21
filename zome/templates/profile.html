@@ -1,184 +1,185 @@
-{% extends "layout.html" %}
-{% block content %}
+{% extends "layout.html" %} {% block stylesheets %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/profile.css') }}"
+/>
+{% endblock stylesheets %} {% block content %}
 <main>
-      <div class="user-profile-container">
-        <div class="profile_img_container">
-          <img src=" {{ url_for('static', filename='{{ user.profile_pics }}') }}" alt="" />
+  <div class="user-profile-container">
+    <div class="profile_img_container">
+      <img
+        src=" {{ url_for('static', filename='images/users/' + user.profile_pics) }}"
+        alt=""
+      />
+    </div>
+    <div class="profile">
+      <h1>Profile Details:</h1>
+      <hr />
+      <div class="profile-details">
+        <div class="profile-detail">
+          <h2>Username:</h2>
+          <p id="user-username">{{ user.username }}</p>
         </div>
-        <div class="profile">
-          <h1>Profile Details:</h1>
-          <hr />
-          <div class="profile-details">
-            <div class="profile-detail">
-              <h2>Username:</h2>
-              <p id="user-username">{{ user.username }}</p>
-            </div>
 
-            <div class="profile-detail">
-              <h2>Last Name:</h2>
-              <p id="user-last_name">{{ user.last_name }}</p>
-            </div>
-            <div class="profile-detail">
-              <h2>First Name:</h2>
-              <p id="user-first_name">{{ user.first_name }}</p>
-            </div>
-            <div class="profile-detail">
-              <h2>Email:</h2>
-              <p id="user-email">{{ user.email }}</p>
-            </div>
-          </div>
-          <h1>All Listings</h1>
-          <hr />
-          <div class="user_listings" data-user_id="{{ user.id }}">
-            <div class="user_listings--listed">
-              {% for listing in all_listings %}
-              <article class="listing">
-                <div class="listing_image">
-                  <img src="{{ url_for('static', filename='{{ listing.image }}') }} " alt="" />
-                </div>
-                <div class="price_favorite_flex">
-                  <h2 class="listing_price">${{lisiting.price}}</h2>
-                  <button class="favorite_btn disabled"></button>
-                </div>
-                <a class="listing_link" href="{{ url_for('listing/{{ listing.id }}' }}">
-                  <p class="listing_title">{{ listing.title }}</p>
-                </a>
-                <div class="listing_details">
-                  <p class="listing_details-bathrooms"><span>{{ listing.number_bathrooms }}</span> bds</p>
-                  <p class="listing_details-bedrooms"><span>{{ listing.number_rooms }}</span> ba</p>
-                  <p class="listing_details-size"><span>{{ listing.size }}</span> sqm</p>
-                  <p class="listing_details-detail">
-                    For Sale
-                  </p>
-                </div>
-                <p class="listing_location">
-                  {{ listing.location }}
-                </p>
-              </article>
-              {% endfor %}
-            </div>
-            <div class="new_listing_btns">
-              <button id="new_home_listing-btn">New Home</button>
-              <button id="new_land_listing-btn">New Land</button>
-            </div>
-            <div class="listing_form_container hidden">
-              <form action="" method="POST" enctype="multipart/form-data">
-                {{ form.hidden_tag() }}
-                <fieldset class="details">
-                  <!-- TODO Enclose labels and inputs in a single div-->
-                  {{ form.title.label()) }}
-                  {% if form.title.errors %}
-                    {{ form.title(class="is-invalid") }}
-					<div class="invalid-feedback">
-						{% for error in form.title.errors %}
-							<span>{{ error }}</span>
-						{% endfor %}
-					</div>
-                {% else %}
-					{{ form.username(class="form-control form-control-lg") }}
-                {% endif %}
-
-
-
-                  <label for="listing_title--input">Title</label>
-                  <input
-                    type="text"
-                    name="username"
-                    placeholder="E.g. The King's Villa"
-                    id="listing_title--input"
-                    minlength="5"
-                    maxlength="100"
-                    required
-                  />
-                  <label for="listing-description">Description</label>
-                  <textarea
-                    name="description"
-                    id="listing-description"
-                    cols="10  "
-                    rows="5"
-                    required
-                    placeholder="Situated in the suburbs..."
-                  ></textarea>
-                  <label for="listing-price">Price ($)</label>
-                  <input
-                    type="number"
-                    name="price"
-                    placeholder="999.99"
-                    min="0"
-                    step="0.01"
-                    id="listing-price"
-                    required
-                  />
-
-                  <label for="listing-location">Location</label>
-                  <input
-                    type="text"
-                    name="location"
-                    placeholder="10 Downing Street..."
-                    id="listing-location"
-                    minlength="5"
-                    maxlength="100"
-                    required
-                  />
-
-                  <fieldset disabled id="room_size_input">
-                    <div class="field_item">
-                      <label for="listing-price">Number of Rooms</label>
-                      <input
-                        type="number"
-                        name="number_rooms"
-                        placeholder="1"
-                        min="1"
-                        id="listing-bedrooms"
-                        required
-                      />
-                    </div>
-
-                    <div class="field_item">
-                      <label for="listing-price">Number of Bathrooms</label>
-                      <input
-                        type="number"
-                        name="number_bathrooms"
-                        placeholder="1"
-                        min="1"
-                        id="listing-bedrooms"
-                        required
-                      />
-                    </div>
-                  </fieldset>
-
-                  <label for="listing-size">Size (sqm)</label>
-                  <input
-                    type="number"
-                    name="size"
-                    placeholder="100"
-                    min="0"
-                    step="0.01"
-                    id="listing-size"
-                    required
-                  />
-
-                  <label for="listing-image">Upload image </label
-                  ><input
-                    type="file"
-                    name="image"
-                    id="listing-image"
-                    accept="image/png, image/jpeg"
-                    required
-                  />
-                  <div id="control-buttons">
-                    <button type="button" id="reset_btn">Cancel</button>
-                    <button type="submit" id="submit" disabled>Submit</button>
-                  </div>
-                </fieldset>
-              </form>
-            </div>
-          </div>
+        <div class="profile-detail">
+          <h2>Last Name:</h2>
+          <p id="user-last_name">{{ user.last_name }}</p>
+        </div>
+        <div class="profile-detail">
+          <h2>First Name:</h2>
+          <p id="user-first_name">{{ user.first_name }}</p>
+        </div>
+        <div class="profile-detail">
+          <h2>Email:</h2>
+          <p id="user-email">{{ user.email }}</p>
         </div>
       </div>
-      <div class="overlay hidden"></div>
-    </main>
-    {% endblock content %}
-    <script src="scripts/profile.js"></script>
-  </body>
-</html>
+      <h1>All Listings</h1>
+      <hr />
+      <div class="user_listings" data-user_id="{{ user.id }}">
+        <div class="user_listings--listed">
+          {% for listing in all_listings %}
+          <article class="listing">
+            <div class="listing_image">
+              <img
+                src="{{ url_for('static', filename='images/listings/' + listing.image) }}"
+                alt=""
+              />
+            </div>
+            <div class="price_favorite_flex">
+              <h2 class="listing_price">${{listing.price}}</h2>
+              <button class="favorite_btn disabled"></button>
+            </div>
+            <a
+              class="listing_link"
+              href="{{ url_for('listings/' + listing.id }}"
+            >
+              <p class="listing_title">{{ listing.title }}</p>
+            </a>
+            <div class="listing_details">
+              <p class="listing_details-bathrooms">
+                <span>{{ listing.number_bathrooms }}</span> bds
+              </p>
+              <p class="listing_details-bedrooms">
+                <span>{{ listing.number_rooms }}</span> ba
+              </p>
+              <p class="listing_details-size">
+                <span>{{ listing.size }}</span> sqm
+              </p>
+              <p class="listing_details-detail">For Sale</p>
+            </div>
+            <p class="listing_location">{{ listing.location }}</p>
+          </article>
+          {% endfor %}
+        </div>
+        <div class="new_listing_btns">
+          <button id="new_home_listing-btn">New Home</button>
+          <button id="new_land_listing-btn">New Land</button>
+        </div>
+        <div class="listing_form_container hidden">
+          <!-- TODO Add placeholders in forms.py-->
+          <form action="" method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="details">
+              <div class="field">
+                {{ form.title.label()) }} {% if form.title.errors %} {{
+                form.title() }}
+                <div class="invalid-feedback">
+                  {% for error in form.title.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %} {{ form.title() }} {% endif %}
+              </div>
+
+              <div class="field">
+                {{ form.description.label()) }} {% if form.description.errors %}
+                {{ form.description() }}
+                <div class="invalid-feedback">
+                  {% for error in form.description.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %} {{ form.description() }} {% endif %}
+              </div>
+
+              <div class="field">
+                {{ form.price.label()) }} {% if form.price.errors %} {{
+                form.price() }}
+                <div class="invalid-feedback">
+                  {% for error in form.price.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %} {{ form.price() }} {% endif %}
+              </div>
+
+              <div class="field">
+                {{ form.location.label()) }} {% if form.location.errors %} {{
+                form.location() }}
+                <div class="invalid-feedback">
+                  {% for error in form.location.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %} {{ form.location() }} {% endif %}
+              </div>
+
+              <fieldset disabled id="room_size_input">
+                <div class="field_item">
+                  {{ form.number_rooms.label()) }} {% if
+                  form.number_rooms.errors %} {{ form.number_rooms() }}
+                  <div class="invalid-feedback">
+                    {% for error in form.number_rooms.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %} {{ form.number_rooms() }} {% endif %}
+                </div>
+
+                <div class="field_item">
+                  {{ form.number_bathrooms.label()) }} {% if
+                  form.number_bathrooms.errors %} {{ form.number_bathrooms() }}
+                  <div class="invalid-feedback">
+                    {% for error in form.number_bathrooms.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %} {{ form.number_bathrooms() }} {% endif %}
+                </div>
+              </fieldset>
+
+              <div class="field">
+                {{ form.size.label()) }} {% if form.size.errors %} {{
+                form.size() }}
+                <div class="invalid-feedback">
+                  {% for error in form.size.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %} {{ form.size() }} {% endif %}
+
+              <div class="field">
+				{{ form.image.label()) }} {% if form.image.errors %} {{
+					form.image() }}
+					<div class="invalid-feedback">
+					  {% for error in form.image.errors %}
+					  <span>{{ error }}</span>
+					  {% endfor %}
+					</div>
+					{% else %} {{ form.image() }} {% endif %}
+              </div>
+              <div id="control-buttons">
+                <button type="button" id="reset_btn">Cancel</button>
+				{{ form.submit(id="submit")) }}
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overlay hidden"></div>
+</main>
+<script src="scripts/profile.js"></script>
+{% endblock content %}

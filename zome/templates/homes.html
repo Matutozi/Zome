@@ -3,30 +3,10 @@
   rel="stylesheet"
   href="{{ url_for('static', filename='styles/homepage.css') }}"
 />
-{% endblock stylesheets %} {% block content %}
-<div class="hero">
-  <h2>The search ends here...</h2>
-  <div class="search-bar">
-    <input
-      type="search"
-      id="query"
-      name="q"
-      placeholder="Search..."
-      size="20"
-    />
-    <button>
-      <svg viewBox="0 0 1024 1024">
-        <path
-          class="path1"
-          d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
-        ></path>
-      </svg>
-    </button>
-  </div>
-</div>
+{% endblock stylesheets %} {% block content%}
 <main>
   <div class="listing_title">
-    <h1>ALL LISTINGS</h1>
+    <h1>HOME LISTINGS</h1>
     <select id="sort-select" name="sorter">
       <option value="">Sort By: Random</option>
       <option value="random">Random</option>
@@ -36,7 +16,7 @@
     </select>
   </div>
   <div class="listing_container">
-    {% for listing in all_listings %}
+    {% for listing in home_listings %}
     <article class="listing">
       <div class="listing_image">
         <img
@@ -52,18 +32,14 @@
         <p class="listing_title">The King's Villa</p>
       </a>
       <div class="listing_details">
-        {% if listing.number_rooms%}
         <p class="listing_details-bathrooms">
           <span>{{ listing.number_rooms }}</span> bds
         </p>
         <p class="listing_details-bedrooms">
           <span>{{ listing.number_bathrooms }}</span> ba
         </p>
-        {% endif %}
         <p class="listing_details-size"><span>{{ listing.size }}</span> sqm</p>
-        <p class="listing_details-detail">
-          <span>{{ 'House' if listing.number_rooms else 'Land'}}</span> for Sale
-        </p>
+        <p class="listing_details-detail"><span>House</span> for Sale</p>
       </div>
       <p class="listing_location">{{ listing.location }}</p>
       <p class="listing_owner">

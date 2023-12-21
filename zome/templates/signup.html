@@ -1,0 +1,97 @@
+{% extends "layout.html" %} {% block stylesheets %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='styles/signup.css') }}"
+/>
+{% endblock stylesheets %} {% block content%}
+<main>
+  <h1>Sign Up Today</h1>
+  <div class="form_container">
+    <div class="alert-container">
+      {% with messages = get_flashed_messages(with_categories=true) %} {% if
+      messages %} {% for category, message in messages %}
+      <span class="alert-{{ category }}">{{ message }}</span>
+      {% endfor %} {% endif %} {% endwith %}
+    </div>
+    <form action="" method="POST">
+      <fieldset class="details">
+        <div class="field">
+          {{ form.username.label()) }} {% if form.username.errors %} {{
+          form.username() }}
+          <div class="invalid-feedback">
+            {% for error in form.username.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.username() }} {% endif %}
+        </div>
+
+        <div class="field">
+          {{ form.surname.label()) }} {% if form.surname.errors %} {{
+          form.surname() }}
+          <div class="invalid-feedback">
+            {% for error in form.surname.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.surname() }} {% endif %}
+        </div>
+        <div class="field">
+          {{ form.firstname.label()) }} {% if form.firstname.errors %} {{
+          form.firstname() }}
+          <div class="invalid-feedback">
+            {% for error in form.firstname.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.firstname() }} {% endif %}
+        </div>
+        <div class="field">
+          {{ form.email.label()) }} {% if form.email.errors %} {{ form.email()
+          }}
+          <div class="invalid-feedback">
+            {% for error in form.email.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.email() }} {% endif %}
+        </div>
+
+        <div class="field">
+          {{ form.phone.label()) }} {% if form.phone.errors %} {{ form.phone()
+          }}
+          <div class="invalid-feedback">
+            {% for error in form.phone.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.phone() }} {% endif %}
+        </div>
+
+        <div class="field">
+          {{ form.password.label()) }} {% if form.password.errors %} {{
+          form.password() }}
+          <div class="invalid-feedback">
+            {% for error in form.password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.password() }} {% endif %}
+        </div>
+        <div class="field">
+          {{ form.confirm_password.label()) }} {% if
+          form.confirm_password.errors %} {{ form.confirm_password() }}
+          <div class="invalid-feedback">
+            {% for error in form.confirm_password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %} {{ form.confirm_password() }} {% endif %}
+        </div>
+        {{ form.submit(id="submit")) }}
+      </fieldset>
+    </form>
+    <p>Already have an account? <a href="{{ url_for('login' }}">Sign In</a></p>
+  </div>
+</main>
+{% endblock content %}

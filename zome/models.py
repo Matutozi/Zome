@@ -23,7 +23,7 @@ class Listing:
     price = db.Column(db.Float, nullable=False)
     location = db.Column(db.String(100), nullable=False)
     size = db.Column(db.Float, nullable=False)
-    image = db.Column(db.String(100), default="images/zome_placeholder-2.jpg")
+    image = db.Column(db.String(100), default="zome_listing_placeholder.jpg")
     date_posted = db.Column(
             db.DateTime,
             nullable=False,
