@@ -27,16 +27,15 @@ main {
 
 .listing > .listing_details {
 	width: 45%;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
 }
 
 .listing p {
 	font-size: 1.5rem
 }
 
-
-.listing_details > * {
-	margin-bottom: 1rem;
-}
 
 p#listing_specs-detail > span {
 	border-radius: 50%;

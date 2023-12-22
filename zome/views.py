@@ -5,6 +5,13 @@ from zome.models import User, LandListing, HouseListing
 api = Blueprint("api", __name__, url_prefix="/api")
 
 
+
+@api.errorhandler(404)
+def page_not_found(error):
+    """Custom 404 error handler"""
+    return jsonify({"error": "Not found"}), 404
+
+
 @api.route("/listings", methods=["GET"])
 def listings():
     """listings resource"""

@@ -14,14 +14,8 @@
       href="{{ url_for('static', filename='styles/common.css') }}"
     />
 
-    {% block stylesheets %}{% endblock %}
-
-    <script
-      type="text/javascript"
-      src="{{ url_for('static', filename='scripts/index_script.js') }}"
-      defer
-    ></script>
-    {% if title %}
+    {% block stylesheets %}{% endblock stylesheets%} {% block scripts %}
+    {%endblock scripts%} {% if title %}
     <title>Zome - {{ title }}</title>
     {% else %}
     <title>Zome</title>
@@ -30,7 +24,11 @@
   <body>
     <header>
       <div class="logo">
-        <a href="/"><img src="images/zome_logo.svg" alt="" /></a>
+        <a href="{{ url_for('home') }}"
+          ><img
+            src="{{ url_for('static', filename='images/zome_logo.svg') }}"
+            alt=""
+        /></a>
       </div>
       <nav>
         <ol>
@@ -39,7 +37,10 @@
           <li><a href="{{ url_for('contact') }}">CONTACT US</a></li>
           <li><a href="{{ url_for('about') }}">ABOUT</a></li>
           <li id="profile_sign">
-            <img src="images/user_circle.svg" alt="" />
+            <img
+              src="{{ url_for('static', filename='images/user_circle.svg') }}"
+              alt=""
+            />
             {% if user %}
             <a href="{{ url_for('profile') }}">{{ user.username }}</a>
             {% else %}

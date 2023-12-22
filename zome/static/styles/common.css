@@ -22,7 +22,7 @@ html {
   --green: green;
   --zome-light-green-mix: hsl(163, 44%, 50%);
   --zome-green-mix: hsl(163, 44%, 27%);
-  --zome-error: hsl(355, 90%, 32%);
+  --zome-error: hsl(0, 100%, 50%);
   --zome-cancel: hsl(0, 67%, 51%);
 }
 
@@ -49,14 +49,11 @@ header > .logo {
   width: 7%;
   height: 90%;
   min-width: 100px;
+  margin-left: 2rem;
 }
 
 header > .logo > img {
   max-height: 100%;
-}
-
-header > nav {
-  width: 40%;
 }
 
 header > nav > ol {

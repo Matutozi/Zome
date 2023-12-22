@@ -28,7 +28,7 @@
         <h2 class="listing_price">${{listing.price}}</h2>
         <button class="favorite_btn checked"></button>
       </div>
-      <a class="listing_link" href="{{ url_for('listings/' + listing.id' }}">
+      <a class="listing_link" href="{{ url_for('listing', listing_id=listing.id) }}">
         <p class="listing_title">The King's Villa</p>
       </a>
       <div class="listing_details">

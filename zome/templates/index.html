@@ -1,76 +1,86 @@
-{% extends "layout.html" %} {% block stylesheets %}
+{% extends "layout.html" %}
+
+{% block scripts %}
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/common_script.js') }}" defer></script>
+
+{% endblock scripts %}
+{% block stylesheets %}
 <link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='styles/homepage.css') }}"
-/>
-{% endblock stylesheets %} {% block content %}
+		 rel="stylesheet"
+		 href="{{ url_for('static', filename='styles/homepage.css') }}"
+		 />
+{% endblock stylesheets %}
+
+
+
+{% block content %}
 <div class="hero">
-  <h2>The search ends here...</h2>
-  <div class="search-bar">
-    <input
-      type="search"
-      id="query"
-      name="q"
-      placeholder="Search..."
-      size="20"
-    />
-    <button>
-      <svg viewBox="0 0 1024 1024">
-        <path
-          class="path1"
-          d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
-        ></path>
-      </svg>
-    </button>
-  </div>
+	<h2>The search ends here...</h2>
+	<div class="search-bar">
+		<input
+			type="search"
+			id="query"
+			name="q"
+			placeholder="Search..."
+			size="20"
+			/>
+		<button>
+			<svg viewBox="0 0 1024 1024">
+				<path
+					class="path1"
+					d="M848.471 928l-263.059-263.059c-48.941 36.706-110.118 55.059-177.412 55.059-171.294 0-312-140.706-312-312s140.706-312 312-312c171.294 0 312 140.706 312 312 0 67.294-24.471 128.471-55.059 177.412l263.059 263.059-79.529 79.529zM189.623 408.078c0 121.364 97.091 218.455 218.455 218.455s218.455-97.091 218.455-218.455c0-121.364-103.159-218.455-218.455-218.455-121.364 0-218.455 97.091-218.455 218.455z"
+					></path>
+			</svg>
+		</button>
+	</div>
 </div>
 <main>
-  <div class="listing_title">
-    <h1>ALL LISTINGS</h1>
-    <select id="sort-select" name="sorter">
-      <option value="">Sort By: Random</option>
-      <option value="random">Random</option>
-      <option value="price_asc">Price: Low to High</option>
-      <option value="price_desc">Price: High to Low</option>
-      <option value="size">Size</option>
-    </select>
-  </div>
-  <div class="listing_container">
-    {% for listing in all_listings %}
-    <article class="listing">
-      <div class="listing_image">
-        <img
-          src="{{ url_for('static', filename='images/listings/' + listing.image) }}"
-          alt=""
-        />
-      </div>
-      <div class="price_favorite_flex">
-        <h2 class="listing_price">${{listing.price}}</h2>
-        <button class="favorite_btn checked"></button>
-      </div>
-      <a class="listing_link" href="{{ url_for('listings/' + listing.id' }}">
-        <p class="listing_title">The King's Villa</p>
-      </a>
-      <div class="listing_details">
-        {% if listing.number_rooms%}
-        <p class="listing_details-bathrooms">
-          <span>{{ listing.number_rooms }}</span> bds
-        </p>
-        <p class="listing_details-bedrooms">
-          <span>{{ listing.number_bathrooms }}</span> ba
-        </p>
-        {% endif %}
-        <p class="listing_details-size"><span>{{ listing.size }}</span> sqm</p>
-        <p class="listing_details-detail">
-          <span>{{ 'House' if listing.number_rooms else 'Land'}}</span> for Sale
-        </p>
-      </div>
-      <p class="listing_location">{{ listing.location }}</p>
-      <p class="listing_owner">
-        <strong>Posted By:</strong><span>{{ listing.user.username }}</span>
-      </p>
-    </article>
-    {% endfor %}
-  </div>
+	<div class="listing_title">
+		<h1>ALL LISTINGS</h1>
+		<select id="sort-select" name="sorter">
+			<option value="">Sort By: Random</option>
+			<option value="random">Random</option>
+			<option value="price_asc">Price: Low to High</option>
+			<option value="price_desc">Price: High to Low</option>
+			<option value="size">Size</option>
+		</select>
+	</div>
+	<div class="listing_container">
+		{% for listing in all_listings %}
+		<article class="listing">
+			<div class="listing_image">
+				<img
+					src="{{ url_for('static', filename='images/listings/' + listing.image) }}"
+					alt=""
+					/>
+			</div>
+			<div class="price_favorite_flex">
+				<h2 class="listing_price">${{listing.price}}</h2>
+				<button class="favorite_btn checked"></button>
+			</div>
+			<a class="listing_link" href="{{ url_for('listing', listing_id=listing.id) }}">
+				<p class="listing_title">The King's Villa</p>
+			</a>
+			<div class="listing_details">
+				{% if listing.number_rooms %}
+				<p class="listing_details-bathrooms">
+				<span>{{ listing.number_rooms }}</span> bds
+				</p>
+				<p class="listing_details-bedrooms">
+				<span>{{ listing.number_bathrooms }}</span> ba
+				</p>
+				{% endif %}
+				<p class="listing_details-size"><span>{{ listing.size }}</span> sqm</p>
+				<p class="listing_details-detail">
+				<span>{{ 'House' if listing.number_rooms else 'Land'}}</span> for Sale
+				</p>
+			</div>
+			<p class="listing_location">{{ listing.location }}</p>
+			<p class="listing_owner">
+			<strong>Posted By:</strong><span>{{ listing.user }}</span>
+			</p>
+		</article>
+		{% endfor %}
+	</div>
 </main>
 {% endblock content %}

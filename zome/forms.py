@@ -20,7 +20,7 @@ class RegistrationForm(FlaskForm):
     surname = StringField(
         "Surname",
         validators=[DataRequired(), Length(min=2, max=20)])
-    firstname = StringField(
+    first_name = StringField(
         "First Name",
         validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField("Email", validators=[DataRequired(), Email()])

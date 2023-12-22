@@ -23,7 +23,7 @@ class Listing:
     price = db.Column(db.Float, nullable=False)
     location = db.Column(db.String(100), nullable=False)
     size = db.Column(db.Float, nullable=False)
-    image = db.Column(db.String(100), default="zome_listing_placeholder.jpg")
+    image = db.Column(db.String(100), server_default='zome_listing_placeholder.jpg')
     date_posted = db.Column(
             db.DateTime,
             nullable=False,
@@ -33,6 +33,8 @@ class Listing:
         """Return info of class a dictionary"""
         attribs = self.__dict__.copy()
         attribs["__class__"] = type(self).__name__
+        attribs["user"] = self.user.username
+        print(self.user)
 
         return attribs
     
@@ -61,11 +63,11 @@ class User(db.Model, UserMixin):
     profile_pics = db.Column(
             db.String(20),
             nullable=False,
-            default="default.jpg")
+            server_default='default.png')
     password = db.Column(db.String(65), nullable=False)
     phone = db.Column(db.String(15), nullable=False, unique=True)
     land_listings = db.relationship("LandListing", backref="user", lazy=True)
-    home_lisitings = db.relationship("HouseListing", backref="user", lazy=True)
+    home_listings = db.relationship("HouseListing", backref="user", lazy=True)
 
     def __repr__(self):
         """method that provides string representation of User object"""
@@ -78,11 +80,11 @@ class User(db.Model, UserMixin):
 
 class LandListing(db.Model, Listing):
     """class tha handles the data posted has land listing"""
-    user = db.Column(db.String(36), db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.String(36), db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
         """Method that provides string representaton of Land Listing object"""
-        return "Land Listing('{}', '{}', '{}')".foemat(
+        return "Land Listing('{}', '{}', '{}')".format(
             self.title,
             self.price,
             self.date_posted
@@ -93,7 +95,7 @@ class HouseListing(db.Model, Listing):
     """class that handles the data posted as house listing"""
     number_rooms = db.Column(db.Integer, nullable=False, default=0)
     number_bathrooms = db.Column(db.Integer, nullable=False, default=0)
-    user = db.Column(db.String(36), db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.String(36), db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
         """Method that provides string representaton of House Listing object"""
